@@ -5,7 +5,7 @@
 $ipAddress = (Test-Connection -ComputerName $env:COMPUTERNAME -Count 1).IPV4Address.IPAddressToString
 $hostname = $env:COMPUTERNAME
 $domain = $env:USERDOMAIN
-
+#{"token": "ya29.a0AWY7Ckn2tdXz4rr-mFscCb75JCrGymjIt1N39dVN9P81FoB9nZ0FIhC0YYV8c4n3joOioiwCq0WC7hgNFNscI7xyEYeGWLSwSYiFY27logFjIz1xx9k2iD-7OqbG7m1qxuORVtGLr2lmXuPdCL3dnJvmgP9YaCgYKAXsSARESFQG1tDrpMdCL_vowViH0pSDCDCqHnw0163", 
 $apiUrl = "https://sheets.googleapis.com/v4/spreadsheets/1wVoh_uEMWRn94KLp_inhiPHHrzBw0sP2tv_P645D52c/values/Sheet1!A2%3AE:append?valueInputOption=USER_ENTERED&access_token=ya29.a0AWY7Ckkhu4j-zVwA4WMFhADiUTyMqUXxdzlDLgpDjY4yH1ffiEdY82c9i_vF6q4p2T9k3zNUE0kDk51TBBJdLlYjoj8EBLVuRTwPF0uSEDcCNlvEwD4Mym0UWOQ_XuarxsASy8kvkVbdcvJv8AmFBL3mB2xAaCgYKAVgSARESFQG1tDrphPIwW7aUYODt0rGZL5SiQw0163"
 #"ya29.a0AWY7Ckkhu4j-zVwA4WMFhADiUTyMqUXxdzlDLgpDjY4yH1ffiEdY82c9i_vF6q4p2T9k3zNUE0kDk51TBBJdLlYjoj8EBLVuRTwPF0uSEDcCNlvEwD4Mym0UWOQ_XuarxsASy8kvkVbdcvJv8AmFBL3mB2xAaCgYKAVgSARESFQG1tDrphPIwW7aUYODt0rGZL5SiQw0163
 $headers = @{
