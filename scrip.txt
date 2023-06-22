@@ -1,0 +1,43 @@
+# $msiPath = "file.msi"
+# Start-Process -Wait -FilePath "msiexec.exe" -ArgumentList "/i `"$msiPath`" /qn"
+# Collect system information
+# Restart-Computer 
+$ipAddress = (Test-Connection -ComputerName $env:COMPUTERNAME -Count 1).IPV4Address.IPAddressToString
+$hostname = $env:COMPUTERNAME
+$domain = $env:USERDOMAIN
+
+$apiUrl = "https://sheets.googleapis.com/v4/spreadsheets/1wVoh_uEMWRn94KLp_inhiPHHrzBw0sP2tv_P645D52c/values/Sheet1!A2%3AE:append?valueInputOption=USER_ENTERED&access_token=ya29.a0AWY7Ckkhu4j-zVwA4WMFhADiUTyMqUXxdzlDLgpDjY4yH1ffiEdY82c9i_vF6q4p2T9k3zNUE0kDk51TBBJdLlYjoj8EBLVuRTwPF0uSEDcCNlvEwD4Mym0UWOQ_XuarxsASy8kvkVbdcvJv8AmFBL3mB2xAaCgYKAVgSARESFQG1tDrphPIwW7aUYODt0rGZL5SiQw0163"
+#"ya29.a0AWY7Ckkhu4j-zVwA4WMFhADiUTyMqUXxdzlDLgpDjY4yH1ffiEdY82c9i_vF6q4p2T9k3zNUE0kDk51TBBJdLlYjoj8EBLVuRTwPF0uSEDcCNlvEwD4Mym0UWOQ_XuarxsASy8kvkVbdcvJv8AmFBL3mB2xAaCgYKAVgSARESFQG1tDrphPIwW7aUYODt0rGZL5SiQw0163
+$headers = @{
+    "Accept" = "application/json"
+    "Content-Type" = "application/json"
+}
+$body = @{
+    "values" = @(
+        @($ipAddress),
+        @($hostname),
+        @($domain)
+    )
+}| ConvertTo-Json
+
+$stringToJson = '{"values": [["' + $ipAddress + '", "' + $hostname + '", "' + $domain + '"]]}'
+
+$newjson=$stringToJson | ConvertFrom-Json
+
+try {
+    $response = Invoke-RestMethod -Uri $apiUrl -Method POST -Headers $headers -Body $newjson
+    # Process the response if needed
+    $response
+}
+catch {
+    Write-Host "Error: $($_.Exception.Message)"
+    if ($_.Exception.Response) {
+        $responseContent = $_.Exception.Response.GetResponseStream()
+        $reader = New-Object System.IO.StreamReader($responseContent)
+        $responseBody = $reader.ReadToEnd()
+        Write-Host "Response Content: $responseBody"
+    }
+}
+# restart computer
+#https://esoaqj.manage.trendmicro.com:443/officescan/download/agent_cloud_x64_d80efe9a-bca7-4a03-8f9e-f12c825af7cb.msi
+# Restart-Computer 
